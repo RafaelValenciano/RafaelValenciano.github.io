@@ -966,7 +966,7 @@ body {
 /*FIN DE LA SECCION ABOUT*/
 
 /*PORTAFOLIO INTERACTIVO*/
-/* Estilos de la sección principal */
+/* Estilos generales de la sección */
 .interactive-portfolio-section {
     padding: 60px 0;
     background-color: var(--bg-color);
@@ -992,6 +992,7 @@ body {
     color: #ccc;
 }
 
+/* Contenedor principal de la sección */
 .interactive-portfolio-content {
     max-width: 1400px;
     margin: 0 auto;
@@ -1002,31 +1003,79 @@ body {
     gap: 30px;
 }
 
-/* Contenedor de controles de navegación (oculto en móvil) */
+/* Contenedor de controles de navegación (móvil) */
 .portfolio-navigation {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 15px;
 }
 
-/* Contenedor del carrusel de tarjetas */
+.nav-btn {
+    background-color: var(--nav-btn-bg);
+    border: none;
+    color: var(--text-color-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.pagination-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.pagination-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pagination-dot.active {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* Contenedor del carrusel de tarjetas (móvil) */
 .portfolio-cards-wrapper {
     width: 100%;
-    padding-bottom: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
 }
 
 .portfolio-cards-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
-    justify-content: center; /* Centra las tarjetas */
+    transition: transform 0.5s ease-in-out;
+    width: fit-content;
+    justify-content: flex-start;
     gap: 20px;
-    padding: 0; /* Elimina el padding para usar el del wrapper */
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-wrap: nowrap;
 }
 
-/* Tarjetas (pósters) con tamaño ajustado para móvil */
 .portfolio-card {
     flex: 0 0 auto;
-    width: calc(50% - 10px); /* 2 tarjetas por fila con un pequeño espacio */
-    max-width: 150px;
-    height: 250px; /* Altura ajustada para mantener la proporción */
+    width: 100px;
+    height: 200px;
     background-color: var(--card-bg);
     border-radius: 12px;
     overflow: hidden;
@@ -1057,7 +1106,7 @@ body {
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     background-color: #000;
@@ -1096,97 +1145,119 @@ body {
     color: #ddd;
 }
 
-/* --- Media Queries para adaptar el diseño --- */
+/* MEDIA QUERIES PARA ADAPTAR EL DISEÑO */
 
-/* Estilos específicos para móvil (hasta 767px) */
-@media (max-width: 767px) {
-    .portfolio-cards-container {
-        justify-content: space-around; /* Distribuye el espacio entre las tarjetas */
-    }
-}
-
-/* Tablet y Escritorio (768px y más) */
-@media (min-width: 768px) {
+/* Escritorio (a partir de 1024px) */
+@media (min-width: 1024px) {
+    /* Estructura principal en dos columnas */
     .interactive-portfolio-content {
-        flex-direction: row;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 1fr 2fr; /* Columna de tarjetas y columna de contenido */
         gap: 50px;
+        align-items: flex-start;
     }
 
-    .portfolio-cards-wrapper,
-    .video-container,
-    .portfolio-details {
-        width: 50%;
+    /* Columna de tarjetas (izquierda) */
+    .content-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: sticky; /* Fija el contenedor de tarjetas */
+        top: 50px;
+        height: 100vh;
+        overflow-y: auto; /* Permite el scroll dentro del contenedor */
+        padding-right: 20px;
     }
     
+    /* Contenedor del carrusel, ahora vertical */
     .portfolio-cards-wrapper {
-        order: 1; /* Coloca el carrusel a la izquierda */
-        overflow-x: visible;
+        overflow-x: visible; /* Elimina el scroll horizontal */
         padding-bottom: 0;
     }
 
-    .video-container {
-        order: 2; /* Coloca el video a la derecha */
-    }
-    
-    .portfolio-details {
-        order: 3;
-        text-align: left;
-    }
-    
-    /* En desktop, el carrusel se verá como una columna vertical */
     .portfolio-cards-container {
-        flex-direction: column;
+        flex-direction: column; /* Apila las tarjetas verticalmente */
         justify-content: flex-start;
         align-items: center;
         flex-wrap: nowrap;
+        gap: 20px;
+        padding-left: 0;
+        padding-right: 0;
     }
 
+    /* Tamaño de las tarjetas para escritorio */
     .portfolio-card {
-        width: 100%; /* Las tarjetas ocupan todo el ancho */
-        max-width: 300px; /* Ancho máximo para mantener la estética */
-        height: 200px; /* Altura más corta para encajar más */
+        width: 100%;
+        max-width: 350px;
+        height: 220px;
+    }
+
+    /* Ocultar los controles de navegación que son para móvil */
+    .portfolio-navigation {
+        display: none;
+    }
+
+    /* Columna de video y detalles (derecha) */
+    .content-right {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        gap: 30px;
     }
     
-    .portfolio-navigation {
-        display: none; /* Oculta los controles de navegación para desktop */
+    .video-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
     }
     
     .portfolio-details {
-        position: sticky; /* Fija los detalles en la parte superior */
-        top: 30px;
-        align-self: flex-start;
+        text-align: left;
+        padding: 30px;
+        background: #222;
+        border-radius: 12px;
     }
 }
 
-/* Pantallas más grandes (1200px y más) */
-@media (min-width: 1200px) {
+/* Volver al diseño de móvil en pantallas más pequeñas */
+@media (max-width: 1023px) {
     .interactive-portfolio-content {
-        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
     }
 
-    .interactive-portfolio-section .section-title {
-        font-size: 3.5em;
+    .content-left, .content-right {
+        width: 100%;
+        position: static;
+        height: auto;
+        overflow-y: visible;
+        padding-right: 0;
     }
 
     .portfolio-cards-wrapper {
-        flex: 1;
-        max-width: 40%;
+        overflow-x: auto;
+        padding-bottom: 20px;
     }
 
-    .video-container,
-    .portfolio-details {
-        flex: 1;
-        max-width: 60%;
+    .portfolio-cards-container {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: fit-content;
+        justify-content: flex-start;
+        padding-left: 20px;
+        padding-right: 20px;
     }
-    
+
     .portfolio-card {
-        height: 250px;
+        width: 100px;
+        height: 200px;
+    }
+
+    .portfolio-navigation {
+        display: flex;
     }
 }
+
 /* --- Botón Flotante de WhatsApp --- */
 .whatsapp-float {
     position: fixed; /* Mantiene el botón fijo en la pantalla */
