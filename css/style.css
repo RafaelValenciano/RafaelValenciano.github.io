@@ -1,0 +1,1239 @@
+/* Añade esto al principio de tu archivo CSS */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Variables CSS para facilitar la personalización */
+:root {
+  --primary-color: #018b3a; /* Azul vibrante para el acento */
+  --text-color-light: #f8f9fa; /* Texto claro para fondos oscuros */
+  --background-dark: #0c0800; /* Fondo oscuro principal */
+  --shadow-color: rgba(0, 0, 0, 0.2); /* Sombra sutil */
+  --transition-speed: 0.3s; /* Velocidad de las transiciones */
+}
+
+html {
+    box-sizing: border-box; /* Asegura que el box-sizing se herede correctamente */
+}
+
+body {
+  margin: 0; /* Unificado */
+  padding: 0; /* Unificado */
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Unificado */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #323b49; /* Un fondo ligeramente gris para el cuerpo */
+  /* padding-top: 56.09px;  Asegúrate de que este padding coincida con la altura final de tu navbar-mobile */
+}
+
+/* --- Estilos de la Barra de Navegación Móvil --- */
+.navbar-mobile {  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1.5rem; /*Tamaño de la barra navbar*/
+  color: var(--text-color-light);
+  margin-bottom: 0;
+  position: fixed; /* Fija la barra en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  background-color: var(--background-dark);
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+/*REMPLAZAR POR LOGO*/
+.navbar-brand .logo {
+ /*height: 40px; /* Ajusta el tamaño de tu logo */
+  /*width: auto;
+  /*display: block; /* Elimina espacio extra debajo de la imagen */
+
+    /* Asegúrate de que el texto del logo sea visible */
+  color: var(--text-color-light); /* Hace el texto del logo blanco/claro */
+  text-decoration: none; /* Elimina el subrayado por defecto de los enlaces */
+  font-size: 1rem; /* Ajusta el tamaño del texto del logo */
+  font-weight: 700; /* Lo hace más audaz */
+}
+
+/* Nuevo contenedor para acciones (solo idioma) */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espacio entre el selector de idioma y el enlace de Davinci */
+    margin-left: auto; /* Empuja este grupo hacia la derecha, antes del toggle */
+    margin-right: 1rem; /* Espacio antes del botón de menú */
+}
+
+/* Selector de Idioma */
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.lang-button {
+    background-color: transparent;
+    color: var(--text-color-light);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background-color 0.3s ease;
+}
+
+.lang-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.lang-button i {
+    transition: transform 0.3s ease;
+}
+
+/* Cuando el selector está activo, gira la flecha */
+.language-selector.active .lang-button i {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+    right: 0; /* Alinea el dropdown a la derecha del botón */
+}
+
+.lang-dropdown-content a {
+    color: var(--text-color-light);
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.lang-dropdown-content a:hover {
+    background-color: var(--primary-color);
+}
+
+/* Muestra el contenido desplegable cuando el padre tiene la clase 'active' */
+.language-selector.active .lang-dropdown-content {
+    display: block;
+}
+
+/* --- Estilos del Botón de Menú Móvil --- */
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Tamaño del área de clic */
+  height: 40px;
+  position: relative; /* Para posicionar el icono de flecha */
+  z-index: 1001; /* Asegura que el botón esté por encima del menú */
+}
+
+/* Estilo de la flecha SVG o pseudo-elemento */
+.menu-toggle .arrow-icon {
+  display: block;
+  width: 15px; /* Tamaño de la flecha */
+  height: 15px;
+  border: solid var(--text-color-light); /* Color de la flecha */
+  border-width: 0 3px 3px 0; /* Solo bordes inferior y derecho */
+  transform: rotate(-225deg); /* Gira para que apunte hacia la izquierda */
+  transition: transform var(--transition-speed) ease;
+}
+
+/* Cuando el menú está abierto, la flecha gira para apuntar a la derecha */
+.menu-toggle[aria-expanded="true"] .arrow-icon {
+  transform: rotate(-315deg);
+}
+
+/* --- Estilos del Menú de Navegación Móvil --- */
+.navbar-menu {
+  position: fixed;
+  top: 0; /* Comienza desde la parte superior de la ventana */
+  right: -100%; /* Inicialmente fuera de la pantalla a la derecha */
+  width: 100%; /* Ocupa todo el ancho */
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  background-color: rgba(33, 37, 41, 0.95); /* Fondo oscuro semitransparente */
+  transition: right var(--transition-speed) ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra los elementos del menú verticalmente */
+  align-items: center; /* Centra los elementos del menú horizontalmente */
+  z-index: 999; /* Por debajo del botón de toggle, pero por encima del contenido */
+  padding-top: 60px; /* Espacio para el navbar fijo en la parte superior */
+}
+
+.navbar-menu.is-open {
+  right: 0; /* Se desliza hacia la pantalla */
+}
+
+.navbar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.navbar-menu li {
+  margin-bottom: 1.5rem; /* Espacio entre los elementos del menú */
+}
+
+.navbar-menu a {
+  color: var(--text-color-light);
+  text-decoration: none;
+  font-size: 1.8rem; /* Tamaño de fuente grande para la navegación móvil */
+  font-weight: 600;
+  transition: color var(--transition-speed) ease;
+}
+
+.navbar-menu a:hover {
+  color: var(--primary-color); /* Color de acento al pasar el ratón */
+}
+
+/* --- Media Query para Escritorio (Desktop: Navbar Completo) --- */
+@media (min-width: 768px) {
+    .navbar-mobile {
+        /* Cambiamos a justify-content: space-between para distribuir los elementos */
+        justify-content: space-between; 
+        padding: 20px 50px; 
+    }
+
+    .navbar-brand {
+        /* El logo se mantendrá a la izquierda por 'space-between' */
+        /* Puedes añadir un margen a la derecha si quieres más espacio entre el logo y el resto */
+        margin-right: 30px; /* Ajusta este valor según cuánto espacio necesites */
+    }
+
+    /* Ocultar el botón de despliegue (hamburguesa) en escritorio */
+    .menu-toggle {
+        display: none;
+    }
+
+    /* El menú de navegación se hace visible y horizontal */
+    .navbar-menu {
+        position: static; 
+        width: auto; 
+        height: auto; 
+        background-color: transparent; 
+        transform: translateX(0); 
+        flex-direction: row; 
+        /* Usamos flex-grow: 1 para que el menú ocupe el espacio central disponible */
+        flex-grow: 1; 
+        /* Quitamos margin-left: auto de aquí, ya que space-between lo manejará */
+        margin-left: 0; 
+        padding: 0;
+        /* Alinea los enlaces a la derecha dentro del espacio que ocupa el menú */
+        justify-content: flex-end; 
+    }
+
+    .navbar-menu ul {
+        display: flex; 
+        width: auto;
+        /* Espacio entre los enlaces de navegación y el selector de idioma */
+        margin-right: 30px; 
+    }
+
+    .navbar-menu ul li {
+        margin: 0 15px; 
+    }
+
+    .navbar-menu ul li a {
+        font-size: 1em; 
+        padding: 5px 0; 
+    }
+
+    /* Asegurar que el contenedor del selector de idioma sea visible en escritorio */
+    .navbar-actions {
+        display: flex; /* Aseguramos que sea flex para alinear el selector */
+        align-items: center; /* Centra verticalmente el selector */
+        /* No necesitas margin-left aquí porque justify-content: space-between lo posicionará */
+    }
+    
+    /* Estilos para el Language Selector dentro de .navbar-actions (si es tu estructura actual) */
+    .navbar-actions .language-selector {
+        position: relative; /* Mantener para el dropdown */
+        display: block; /* O flex si lo necesitas */
+    }
+
+    .navbar-actions .language-selector .lang-dropdown-content {
+        /* Para que el dropdown se muestre al hacer hover en escritorio */
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: calc(100% + 5px); /* Posición debajo del botón */
+        left: 50%;
+        transform: translateX(-50%); /* Centrar bajo el botón */
+        /* Asegúrate de que tenga un color de fondo y z-index adecuados */
+        background-color: var(--background-dark); 
+        border: 1px solid var(--primary-color);
+        border-radius: 5px;
+        min-width: 80px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+        flex-direction: column;
+    }
+
+    .navbar-actions .language-selector:hover .lang-dropdown-content {
+        display: flex; /* Mostrar al hacer hover */
+    }
+}
+
+/* --- Estilos de la Sección Hero (Video) --- */
+.hero-video-container {
+  position: relative;
+  width: 100%;
+  height: 60vh; /* Ocupa toda la altura de la ventana */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-color-light);
+}
+
+.video-responsive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.video-responsive video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que el video cubra todo el contenedor */
+  filter: brightness(0.6); /* Oscurece el video para que el texto sea legible */
+}
+
+/* --- Estilos del Botón de Audio (MODIFICADO) --- */
+.video-controls {
+  position: absolute;
+  bottom: 20px; /* Distancia desde abajo */
+  right: 20px;  /* Distancia desde la derecha */
+  z-index: 3; /* Asegura que esté por encima del video */
+  /* display: flex;  Elimina esto si solo hay un botón y quieres controlarlo directamente */
+  /* align-items: center; */
+  /* gap: 10px; */
+
+  /* Estilos para el fondo del botón/contenedor */
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo blanco semitransparente */
+  border-radius: 50%; /* Lo hace circular */
+  width: 50px; /* Ancho para el círculo */
+  height: 50px; /* Alto para el círculo */
+  display: flex; /* Para centrar el ícono dentro */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  backdrop-filter: blur(5px); /* Efecto de desenfoque, similar al de iOS */
+  -webkit-backdrop-filter: blur(5px); /* Compatibilidad con Safari */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-controls:hover {
+  background-color: rgba(255, 255, 255, 0.4); /* Un poco más opaco al pasar el ratón */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Sombra más pronunciada */
+}
+
+.video-control-button {
+  background: none;
+  border: none;
+  color: #ffffff; /* Color del ícono blanco */
+  font-size: 1.8rem; /* Tamaño del ícono */
+  cursor: pointer;
+  padding: 0; /* Sin padding interno para el botón, ya lo controla el padre */
+  display: flex; /* Para centrar el ícono si hay un texto */
+  justify-content: center;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.video-control-button:hover {
+  color: var(--primary-color); /* Puedes cambiarlo a un color de acento o mantenerlo blanco */
+}
+
+.hero-content {
+  position: absolute; /* Se mantiene absoluto para superponerse al video */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Asegura que el texto esté por encima del video */
+  text-align: center;
+  color: var(--text-color-light); /* Asegura que el texto sea visible */
+  width: 90%;
+  max-width: 900px;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* --- Ajustes específicos para pantallas móviles en orientación vertical (portrait) --- */
+@media (max-width: 767px) and (orientation: portrait) {
+  .hero-video-container {
+    /* Aquí ajustamos la altura del contenedor principal para que tenga
+       la misma relación de aspecto que un video 16:9.
+       Esto reducirá el recorte lateral en pantallas móviles verticales. */
+    height: 56.25vw; /* Altura es 56.25% del ancho del viewport (para video 16:9) */
+    min-height: 250px; /* Opcional: asegura una altura mínima en pantallas muy pequeñas */
+
+    /* Puedes quitar las propiedades flexbox aquí si el hero-content es siempre absoluto */
+    display: block; /* Sobreescribe display:flex si no lo necesitas aquí */
+    justify-content: unset; /* Reinicia justify-content */
+    align-items: unset; /* Reinicia align-items */
+  }
+  /* El video dentro de .video-responsive seguirá usando object-fit: cover y llenará este nuevo contenedor */
+}
+
+/* --- Ajustes opcionales para pantallas móviles en orientación horizontal (landscape) --- */
+@media (max-width: 767px) and (orientation: landscape) {
+  .hero-video-container {
+    /* En móviles apaisados, mantener 100vh suele funcionar bien */
+    height: 100vh;
+  }
+}
+
+.hero-content h1 {
+  font-size: 2.8rem; /* Tamaño grande para el título */
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  padding: 0.8rem 2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.cta-button:hover {
+  background-color: #0056b3; /* Un tono más oscuro */
+}
+
+/* --- NUEVA SECCIÓN DE SERVICIOS DESTACADOS --- */
+.servicios-destacados-section {
+    padding: 20px 0;
+    background-color: var(--background-dark);
+    color: var(--text-color-light);
+    text-align: center;
+}
+
+.servicios-destacados-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.servicios-destacados-section .subtitle {
+    font-size: 0.9em;
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.servicios-destacados-section h2 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: var(--text-color-light); /* Asegura que el título principal sea claro */
+}
+
+.servicios-destacados-section .description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    color: #bbb;
+}
+
+.landscape-img {
+    width: 100%;
+    max-width: 900px; /* Ajusta esto según el tamaño deseado */
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px; /* Espacio debajo de la imagen */
+    display: block; /* Elimina espacio extra */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Contenedor de las tarjetas de servicios destacados (con scroll horizontal) */
+.destacados-cards-wrapper {
+    display: flex;
+    overflow-x: auto; /* Habilita el desplazamiento horizontal */
+    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+    scroll-snap-type: x mandatory; /* Para que las tarjetas se ajusten al desplazarse */
+    padding-bottom: 20px; /* Espacio para la barra de desplazamiento */
+    margin-bottom: 20px;
+    gap: 30px; /* Espacio entre las tarjetas */
+    justify-content: flex-start; /* Alinea las tarjetas al inicio del contenedor */
+    padding-left: 15px; /* Padding a los lados para que no estén pegadas */
+    padding-right: 15px;
+}
+
+/* Oculta la barra de desplazamiento por defecto */
+.destacados-cards-wrapper::-webkit-scrollbar {
+    height: 12px; /* Altura de la barra de desplazamiento */
+}
+
+/* Estilo del track de la barra de desplazamiento */
+.destacados-cards-wrapper::-webkit-scrollbar-track {
+    background: #444; /* Color del fondo de la barra */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo del thumb (indicador de desplazamiento) */
+.destacados-cards-wrapper::-webkit-scrollbar-thumb {
+    background: var(--primary-color); /* Color del indicador */
+    border-radius: 2px; /* Hace el indicador rectangular */
+    border: 3px solid #444; /* Borde para el efecto rectangular más pronunciado */
+}
+
+/* Estilo del thumb al pasar el ratón */
+.destacados-cards-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Color más oscuro al pasar el ratón */
+}
+
+
+/* Estilos para cada tarjeta individual */
+.destacado-card {
+    flex: 0 0 300px; /* Ancho fijo para cada tarjeta, no se encogen */
+    width: 300px; /* Ancho explícito para fallback */
+    height: 400px; /* Altura para el formato rectangular vertical */
+    background-color: #2a3039;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    position: relative; /* Para posicionar el overlay */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    scroll-snap-align: start; /* Para que se ajusten al inicio al desplazarse */
+}
+
+.destacado-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.destacado-card .card-image {
+    width: 100%;
+    height: 100%; /* La imagen de fondo cubre toda la tarjeta */
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.destacado-card:hover .card-image {
+    transform: scale(1.05); /* Zoom en la imagen al pasar el ratón */
+}
+
+.destacado-card .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Degradado de oscuro a transparente */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+    color: var(--text-color-light);
+    padding: 20px;
+    text-align: left;
+    min-height: 120px; /* Asegura que el overlay tenga un tamaño mínimo */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Alinea el contenido al final del overlay */
+}
+
+.destacado-card .card-overlay h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    line-height: 1.3;
+    color: var(--primary-color);
+}
+
+.destacado-card .card-overlay p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+/* Media Queries para Responsividad de la nueva sección */
+@media (min-width: 768px) {
+    .destacados-cards-wrapper {
+        justify-content: center; /* Centra las tarjetas en desktop */
+        flex-wrap: wrap; /* Permite que las tarjetas se envuelvan si hay espacio */
+        overflow-x: hidden; /* Deshabilita el scroll horizontal en desktop */
+        padding-left: 0;
+        padding-right: 0;
+        /* Elimina estilos de scrollbar para desktop si no quieres custom scrollbar allí */
+        scrollbar-width: none; /* Firefox */
+    }
+    .destacados-cards-wrapper::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Edge */
+    }
+
+    .destacado-card {
+        flex: 0 0 calc(33.333% - 20px); /* 3 columnas con espacio */
+        max-width: 350px; /* Ancho máximo en desktop */
+        margin-bottom: 30px; /* Espacio inferior cuando se envuelven */
+    }
+}
+
+@media (max-width: 480px) {
+    .servicios-destacados-section h2 {
+        font-size: 2em;
+    }
+
+    .destacado-card .card-overlay h3 {
+    font-size: 0.8em;
+    margin-bottom: 5px;
+    line-height: 1.3;
+    color: var(--primary-color);
+    }
+
+    .destacado-card .card-overlay p {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: #ccc;
+    }
+    
+    .destacado-card {
+        flex: 0 0 110px; /* Ligeramente más pequeñas en móviles muy pequeños */
+        width: 110px;
+        height: 160px;
+    }
+    .destacados-cards-wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+        gap: 5px;
+    }
+}
+/* FIN NUEVA SECCIÓN DE SERVICIOS DESTACADOS */
+
+/* --- SECCIÓN CONTACTO --- */
+.contact-section {
+    padding: 4rem 1.5rem;
+    background-color: var(--background-dark);
+    color: var(--text-color-light);
+    text-align: center;
+}
+
+.contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Apilado en móvil */
+    gap: 3rem;
+}
+
+.contact-info {
+    flex: 1;
+    text-align: center; /* Centrado en móvil */
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.contact-details p {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centrado en móvil */
+    gap: 10px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.contact-details p i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.social-links {
+    margin-top: 2rem;
+    text-align: center; /* Centrado en móvil */
+}
+
+.social-links a {
+    color: var(--text-color-light);
+    font-size: 1.8rem;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+.contact-form-wrapper {
+    flex: 1;
+    background-color: #2a3039;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+    text-align: left; /* Alinea los inputs y labels a la izquierda */
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #444;
+    background-color: #333;
+    color: var(--text-color-light);
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Asegura que padding no aumente el ancho total */
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #aaa;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+
+.contact-form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+.contact-form .submit-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease;
+    width: 100%; /* Ocupa todo el ancho en móvil */
+}
+
+.contact-form .submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Oculta visualmente, pero accesible para lectores de pantalla */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Media Query para Escritorio (contact-section) */
+@media (min-width: 768px) {
+    .contact-container {
+        flex-direction: row; /* Columnas lado a lado en desktop */
+        align-items: flex-start; /* Alinea el contenido al inicio de cada columna */
+        text-align: left;
+    }
+
+    .contact-info h2,
+    .contact-info p {
+        text-align: left; /* Alinea a la izquierda en desktop */
+    }
+
+    .contact-details p {
+        justify-content: flex-start; /* Alinea los íconos y texto a la izquierda */
+    }
+
+    .social-links {
+        text-align: left; /* Alinea los iconos de redes sociales a la izquierda */
+    }
+
+    .contact-form .submit-btn {
+        width: auto; /* El botón no ocupa el 100% en desktop */
+        padding: 0.8rem 2.5rem; /* Ajusta el padding para que sea similar a otros botones */
+        margin-left: auto; /* Centra el botón si es necesario o alinea a la derecha */
+        margin-right: auto;
+    }
+}
+
+/* --- Sección Quienes Somos (About Us) --- */
+/* --- Sección Quienes Somos (About Us) --- */
+.about-us-section {
+    padding: 40px 0;
+    background-color: var(--background-dark);
+    color: var(--text-color-light);
+}
+
+.about-us-container {
+    display: flex; /* Activa Flexbox */
+    flex-direction: row; /* Mantiene los elementos en fila (imagen a la izquierda, texto a la derecha) */
+    /* flex-wrap: nowrap; */ /* Esto es el valor por defecto, así que no es estrictamente necesario declararlo,
+                               pero lo comento para recordar que no queremos que se "envuelvan" */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: flex-start; /* Alinea los ítems al inicio de su contenedor (parte superior) */
+    gap: 40px; /* Espacio entre la imagen y el contenido */
+    max-width: 1200px; /* Ancho máximo para el contenedor en pantallas grandes */
+    margin: 0 auto; /* Centra el contenedor en la página */
+    padding: 0 20px; /* Padding horizontal para evitar que el contenido toque los bordes */
+}
+
+.about-us-image-wrapper {
+    flex-shrink: 1; /* Permite que la imagen se encoja si no hay suficiente espacio */
+    flex-grow: 0; /* No permite que la imagen crezca más allá de su tamaño preferido/máximo */
+    flex-basis: 400px; /* Ancho preferido o base para la imagen */
+    min-width: 250px; /* **Ancho mínimo ABSOLUTO para la imagen.** Si la pantalla es más pequeña, la imagen se hará más pequeña */
+    max-width: 450px; /* Límite máximo para la imagen en escritorio */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.about-us-image-wrapper img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block;
+    object-fit: cover;
+}
+
+.about-us-content {
+    flex-shrink: 1; /* Permite que el contenido se encoja */
+    flex-grow: 1; /* Permite que el contenido crezca para llenar el espacio restante */
+    flex-basis: 550px; /* Ancho preferido o base para el contenido de texto */
+    min-width: 300px; /* **Ancho mínimo ABSOLUTO para el contenido de texto.** Si la pantalla es más pequeña, el texto se hará más pequeño */
+    max-width: 600px; /* Límite de ancho para el texto en escritorio */
+    text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.about-us-content .subtitle {
+    font-size: 0.9em;
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: left; /* Asegura la alineación izquierda */
+}
+
+.about-us-content h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.about-us-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Estilos básicos para el botón */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-primary:hover {
+    /* Aquí necesitarías una forma de oscurecer el color si no usas preprocesadores como Sass */
+    /* Por ejemplo, podrías definir un color más oscuro directamente */
+    background-color: #0056b3; /* Un color de ejemplo más oscuro para el hover */
+    color: var(--text-color-light);
+}
+
+/* --- Media Query para ajustar en pantallas pequeñas (móviles) --- */
+@media (max-width: 767px) {
+
+    .about-us-content .subtitle {
+    font-size: 0.7em;
+    color: var(--primary-color);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    text-align: left; /* Asegura la alineación izquierda */
+}
+
+.about-us-content h2 {
+    font-size: 0.8em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.about-us-content p {
+    font-size: 0.5em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 4px 12.5px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .about-us-container {
+        /* No cambiamos flex-direction a column, se mantiene en row */
+        /* Eliminamos justify-content: center aquí si queremos que la imagen y el texto queden más a los bordes */
+        align-items: flex-start; /* Mantiene la alineación superior de los ítems */
+        gap: 20px; /* Reduce el espacio entre elementos en móviles */
+    }
+
+    .about-us-image-wrapper {
+        flex-basis: 60%; /* La imagen ocupa una base del 40% del contenedor en móviles */
+        max-width: 150px; /* **Ajusta este valor:** Esto hará la imagen MUY pequeña en móviles */
+        min-width: 100px; /* Mínimo para que la imagen no desaparezca */
+        margin-right: 5px; /* Pequeño margen para separar de la izquierda del texto */
+        margin-left: 0;
+    }
+
+    .about-us-content {
+        flex-basis: 55%; /* El texto ocupa una base del 55% del contenedor en móviles */
+        min-width: 150px; /* Mínimo para que el texto sea legible */
+        max-width: 100%; /* Permite que ocupe casi todo el ancho disponible */
+        text-align: left; /* Mantiene el texto alineado a la izquierda */
+        padding-right: 10px; /* Pequeño padding para que el texto no toque el borde */
+    }
+
+    /* Asegurar que todos los elementos de texto mantengan su alineación izquierda */
+    .about-us-content .subtitle,
+    .about-us-content h2,
+    .about-us-content p {
+        text-align: left;
+    }
+}
+
+/* Opcional: Ajustes para pantallas aún más grandes */
+@media (min-width: 1200px) {
+    .about-us-container {
+        gap: 80px;
+    }
+    .about-us-content h2 {
+        font-size: 3em;
+    }
+    .about-us-image-wrapper {
+        max-width: 500px; /* Límite para pantallas muy grandes */
+    }
+}
+/*FIN DE LA SECCION ABOUT*/
+
+/*PORTAFOLIO INTERACTIVO*/
+/* Estilos de la sección principal */
+.interactive-portfolio-section {
+    padding: 60px 0;
+    background-color: var(--bg-color);
+    color: var(--text-color-light);
+    font-family: 'Poppins', sans-serif;
+}
+
+.interactive-portfolio-section .section-title {
+    font-size: clamp(2em, 5vw, 3em);
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.interactive-portfolio-section .section-description {
+    font-size: clamp(0.9em, 2vw, 1.1em);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.interactive-portfolio-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Contenedor de controles de navegación (oculto en móvil) */
+.portfolio-navigation {
+    display: none;
+}
+
+/* Contenedor del carrusel de tarjetas */
+.portfolio-cards-wrapper {
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.portfolio-cards-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+    justify-content: center; /* Centra las tarjetas */
+    gap: 20px;
+    padding: 0; /* Elimina el padding para usar el del wrapper */
+}
+
+/* Tarjetas (pósters) con tamaño ajustado para móvil */
+.portfolio-card {
+    flex: 0 0 auto;
+    width: calc(50% - 10px); /* 2 tarjetas por fila con un pequeño espacio */
+    max-width: 150px;
+    height: 250px; /* Altura ajustada para mantener la proporción */
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    border: 3px solid transparent;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+}
+
+.portfolio-card.active {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Reproductor de video */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+    height: 0;
+    overflow: hidden;
+    background-color: #000;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Detalles del proyecto */
+.portfolio-details {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.portfolio-details h3 {
+    font-size: clamp(1.5em, 4vw, 2em);
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+}
+
+.portfolio-details p {
+    font-size: clamp(0.9em, 2vw, 1em);
+    line-height: 1.5;
+    color: #ddd;
+}
+
+/* --- Media Queries para adaptar el diseño --- */
+
+/* Estilos específicos para móvil (hasta 767px) */
+@media (max-width: 767px) {
+    .portfolio-cards-container {
+        justify-content: space-around; /* Distribuye el espacio entre las tarjetas */
+    }
+}
+
+/* Tablet y Escritorio (768px y más) */
+@media (min-width: 768px) {
+    .interactive-portfolio-content {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 50px;
+    }
+
+    .portfolio-cards-wrapper,
+    .video-container,
+    .portfolio-details {
+        width: 50%;
+    }
+    
+    .portfolio-cards-wrapper {
+        order: 1; /* Coloca el carrusel a la izquierda */
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .video-container {
+        order: 2; /* Coloca el video a la derecha */
+    }
+    
+    .portfolio-details {
+        order: 3;
+        text-align: left;
+    }
+    
+    /* En desktop, el carrusel se verá como una columna vertical */
+    .portfolio-cards-container {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .portfolio-card {
+        width: 100%; /* Las tarjetas ocupan todo el ancho */
+        max-width: 300px; /* Ancho máximo para mantener la estética */
+        height: 200px; /* Altura más corta para encajar más */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .portfolio-navigation {
+        display: none; /* Oculta los controles de navegación para desktop */
+    }
+    
+    .portfolio-details {
+        position: sticky; /* Fija los detalles en la parte superior */
+        top: 30px;
+        align-self: flex-start;
+    }
+}
+
+/* Pantallas más grandes (1200px y más) */
+@media (min-width: 1200px) {
+    .interactive-portfolio-content {
+        padding: 50px;
+    }
+
+    .interactive-portfolio-section .section-title {
+        font-size: 3.5em;
+    }
+
+    .portfolio-cards-wrapper {
+        flex: 1;
+        max-width: 40%;
+    }
+
+    .video-container,
+    .portfolio-details {
+        flex: 1;
+        max-width: 60%;
+    }
+    
+    .portfolio-card {
+        height: 250px;
+    }
+}
+/* --- Botón Flotante de WhatsApp --- */
+.whatsapp-float {
+    position: fixed; /* Mantiene el botón fijo en la pantalla */
+    bottom: 25px; /* Distancia desde la parte inferior de la ventana */
+    right: 25px; /* Distancia desde la parte derecha de la ventana */
+    z-index: 9999; /* Asegura que el botón esté por encima de todos los demás elementos */
+}
+
+.whatsapp-float a {
+    display: flex; /* Para centrar el icono dentro del círculo */
+    justify-content: center;
+    align-items: center;
+    background-color: #25d366; /* Color verde oficial de WhatsApp */
+    color: white; /* Color del icono */
+    width: 65px; /* Ancho del botón */
+    height: 65px; /* Alto del botón (igual al ancho para que sea un círculo perfecto) */
+    border-radius: 50%; /* Hace el botón completamente redondo */
+    text-align: center;
+    font-size: 2.5em; /* Tamaño del icono de WhatsApp */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Sombra para darle un efecto 3D/flotante */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves al interactuar */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.whatsapp-float a:hover {
+    transform: scale(1.1); /* Agranda el botón ligeramente al pasar el ratón */
+    background-color: #1da851; /* Un verde ligeramente más oscuro al pasar el ratón */
+}
+
+/* Ajustes para Responsividad (opcional, para pantallas más pequeñas) */
+@media (max-width: 767px) {
+    .whatsapp-float {
+        bottom: 15px; /* Reduce la distancia desde abajo en móviles */
+        right: 15px; /* Reduce la distancia desde la derecha en móviles */
+    }
+    .whatsapp-float a {
+        width: 55px; /* Reduce el tamaño del botón en móviles */
+        height: 55px;
+        font-size: 2em; /* Reduce el tamaño del icono en móviles */
+    }
+}
+
+/* --- Estilos del Pie de Página (Copyright) --- */
+.footer {
+    background-color: #1a1e22; /* Un tono más oscuro para el pie de página */
+    color: #bbb;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}

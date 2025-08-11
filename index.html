@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafael Valenciano | Portafolio Digital</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar-mobile">
+        <div class="navbar-brand">
+            <a href="#" class="logo">RAFAEL VALENCIANO</a>
+        </div>
+        
+        <div class="navbar-actions">
+                <div class="language-selector">
+                    <button class="lang-button">ES <i class="fas fa-caret-down"></i></button>
+                    <div class="lang-dropdown-content">
+                        <a href="#" data-lang="en">EN</a>
+                        <a href="#" data-lang="es">ES</a>
+                    </div>
+                </div>
+        </div>
+        
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="arrow-icon"></span>
+        </button>
+        <nav id="mobile-menu" class="navbar-menu">
+            <ul>
+                <li><a href="#servicios-destacados">Servicios</a></li>
+                <li><a href="#acerca-nosotros">Acerca de mi</a></li>
+                <li><a href="#interactive-portfolio">Portfolio</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-video-container">
+        <div class="video-responsive">
+            <video autoplay loop muted playsinline id="heroVideo">
+                <source src="/hero-video/Hero-video-base.mp4" type="video/mp4">
+                Tu navegador no soporta el tag de video.
+            </video>
+        </div>
+
+    <div class="video-controls">
+        <button id="muteToggle" class="video-control-button">
+            <i class="fas fa-volume-mute"></i> </button>
+    </div>
+    </section>
+
+        <section id="servicios-destacados" class="servicios-destacados-section">
+        <div class="container">
+            <p class="subtitle">SERVICIOS DESTACADOS</p>
+            <h2>Explora Mis Soluciones Destacadas</h2>
+            <p class="description">Sumérgete en la innovación con mis servicios más avanzados, diseñados para transformar tu presencia digital y optimizar tus operaciones.</p>
+            
+            <img src="/assets/img-services/servicios-producion-ia-vfx-paudiovisual-inteligencia-artificial-contenido.jpg" alt="Imagen apaisada de servicios" class="landscape-img">
+
+            <div class="destacados-cards-wrapper">
+                <div class="destacado-card">
+                    <div class="card-image" style="background-image: url('/assets/img-services/automatizaciones-inteligencia-artificial-web-ia-corporativo.jpeg');"></div>
+                    <div class="card-overlay">
+                        <h3>Servicios optimizados <br>por la IA</h3>
+                        <!--<p>Creamos sitios web únicos y optimizados para tu negocio, con diseño responsivo y experiencia de usuario excepcional.</p>-->
+                    </div>
+                </div>
+                <div class="destacado-card">
+                    <div class="card-image" style="background-image: url('/assets/img-services/produccion-audiovisual-inteligencia\ artificial.jpg');"></div>
+                    <div class="card-overlay">
+                        <h3>Produccion Audiovisual</h3>
+                        <!--<p>Estrategias SEO, SEM y de contenido para aumentar tu visibilidad y atraer a tu audiencia ideal.</p>-->
+                    </div>
+                </div>
+                <div class="destacado-card">
+                    <div class="card-image" style="background-image: url('/assets/img-services/social-media-marketing-digital-metricas.jpeg');"></div>
+                    <div class="card-overlay">
+                        <h3>Diseño Web Resposive</h3>
+                        <!--<p>Desarrollamos la identidad visual y narrativa de tu marca para una conexión emocional duradera.</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+    <section id="acerca-nosotros" class="about-us-section">
+    <div class="container about-us-container">
+        <div class="about-us-image-wrapper">
+            <img src="/assets/rafael-valenciano.jpeg" alt="Equipo de trabajo o visión de la empresa">
+        </div>
+        <div class="about-us-content">
+            <p class="subtitle">RAFAEL VALENCIANO</p>
+            <h2>Diseñador Web</h2>
+            <p>Mi misión es potenciar la identidad de tu marca y conectar con tu audiencia de manera impactante, construyendo puentes entre tu visión y el éxito comercial.</p>
+            <a href="#contacto" class="btn btn-primary">Contáctame</a>
+        </div>
+    </div>
+    </section>
+
+<section id="interactive-portfolio" class="interactive-portfolio-section">
+    <div class="container">
+        <h2 class="section-title">MIS PROYECTOS DESTACADOS</h2>
+        <p class="section-description">El proceso creativo es mi brújula, guiándome a través de cada proyecto con una combinación única de estrategia, innovación y pasión por los detalles.</p>
+
+        <div class="interactive-portfolio-content">
+            <div class="content-left">
+                <div class="portfolio-navigation">
+                    <button id="prev-btn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+                    <div id="pagination-dots" class="pagination-dots"></div>
+                    <button id="next-btn" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <div class="portfolio-cards-wrapper">
+                    <div id="portfolio-cards-container" class="portfolio-cards-container">
+                        <div class="portfolio-card" data-project-id="1" data-title="Tesoros Olvidados" data-description="Producción audiovisual de la segunda temporada de una serie de aventura, encargándonos de la dirección, grabación y postproducción." data-youtube-id="Qc1ZXXjSGu8">
+                            <img src="/assets/portfolio/Tesoros-olvidados-trailer-aventura.jpeg" alt="Tesoros Olvidados">
+                        </div>
+                        <div class="portfolio-card" data-project-id="2" data-title="Very Well" data-description="Serie de comedia de turismo con enfoque en la enseñanza de inglés, un proyecto integral desde el guion hasta la edición final." data-youtube-id="bxkGkN2RxcY">
+                            <img src="/assets/portfolio/ingles-serie-turismo-verywell-comedia.jpeg" alt="Very Well">
+                        </div>
+                        <div class="portfolio-card" data-project-id="3" data-title="Ana María" data-description="Cortometraje de acción y suspenso ambientado en Cali, explorando temáticas de drama y conflicto a través de una intensa narrativa." data-youtube-id="_ATmIwS3naw">
+                            <img src="/assets/portfolio/accion-suspenso-drama-taxi-cali.jpeg" alt="Ana Maria">
+                        </div>
+                        <div class="portfolio-card" data-project-id="4" data-title="En la Otra Orilla" data-description="Serie dramática que aborda la corrupción policial y el conflicto armado, ofreciendo una perspectiva cruda y realista de la sociedad." data-youtube-id="VdxSonMgwSg">
+                            <img src="/assets/portfolio/policia-corrupcion-conflicto armado-serie-abuelos.jpg" alt="En la Otra Orilla">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-right">
+                <div class="video-container">
+                    <div id="portfolio-youtube-player"></div>
+                    <button id="mute-toggle" class="mute-toggle">
+                        <i class="fas fa-volume-mute"></i>
+                    </button>
+                </div>
+
+                <div class="portfolio-details">
+                    <h3 id="project-title">Título del Proyecto</h3>
+                    <p id="project-description">Descripción del proyecto seleccionado.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="contacto" class="contact-section">
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Hablemos de tu proyecto</h2>
+            <p>Estoy listo para escucharte y convertir tus ideas en realidad. Ponte en contacto conmigo.</p>
+            <div class="contact-details">
+                <p><i class="fas fa-phone-alt"></i> +57 3103423588</p>
+                <p><i class="fas fa-envelope"></i> cifuentesvalenciano@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Bogota, Colombia</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/tupagina" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/tupagina" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/tunumero" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="contact-form-wrapper">
+            <form class="contact-form" action="https://formspree.io/f/xpwlpqge" method="post">
+                <div class="form-group">
+                    <label for="name" class="visually-hidden">Nombre</label>
+                    <input type="text" id="name" name="name" placeholder="Nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="visually-hidden">Email</label>
+                    <input type="email" id="email" name="_replyto" placeholder="Correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="visually-hidden">Asunto</label>
+                    <input type="text" id="subject" name="_subject" placeholder="Asunto">
+                </div>
+                <div class="form-group">
+                    <label for="message" class="visually-hidden">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tu mensaje" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
+        </div>
+    </div>
+    </section>
+
+    <footer class="footer">
+    <div class="container">
+        <p>&copy; <span id="current-year"></span> RAFAEL VALENCIANO. <br>Todos los derechos reservados.</p>
+    </div>
+    </footer>
+
+    <div class="whatsapp-float">
+        <a href="https://wa.me/573103423588?text=Hola!%20Me%20interesa%20saber%20más%20sobre%20sus%20servicios." target="_blank" aria-label="Enviar mensaje por WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
